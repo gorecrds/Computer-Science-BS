@@ -4,17 +4,17 @@ def nQueensAll(n: int) -> list[list[tuple[int, int]]]:  # pylint: disable=invali
     cols = set()
     pos_diag_id = set()  # i_row + i_col
     neg_diag_id = set()  # i_row - i_col
-    solutions = []
-    positions = [None] * n
+    result = []
+    queen_position = [None] * n
 
 
     def remove_queen(row: int) -> int:
         """Remove queen from given row. Returns the removed column."""
-        col = positions[row]
+        col = queen_position[row]
         cols.remove(col)
         pos_diag_id.remove(row + col)
         neg_diag_id.remove(row - col)
-        positions[row] = None
+        queen_position[row] = None
         return col
 
     def backtrack() -> None:
@@ -25,11 +25,7 @@ def nQueensAll(n: int) -> list[list[tuple[int, int]]]:  # pylint: disable=invali
                 return
             if index_col >= n:
                 index_row-=1
-                index_col=positions[index_row]+1
-                cols.remove(positions[index_row])
-                pos_diag_id.remove(index_row + positions[index_row])
-                neg_diag_id.remove(index_row - positions[index_row])
-                positions[index_row]=None
+                index_col = remove_queen(index_row) + 1
                 continue
 
             index_pos_diag = index_row + index_col
@@ -39,7 +35,7 @@ def nQueensAll(n: int) -> list[list[tuple[int, int]]]:  # pylint: disable=invali
                 index_col += 1
                 continue
 
-            positions[index_row] = index_col
+            queen_position[index_row] = index_col
             cols.add(index_col)
             pos_diag_id.add(index_pos_diag)
             neg_diag_id.add(index_neg_diag)
@@ -47,16 +43,11 @@ def nQueensAll(n: int) -> list[list[tuple[int, int]]]:  # pylint: disable=invali
             index_row += 1
 
             if index_row >= n:
-                solutions.append([(r, c) for r, c in enumerate(positions)])
-                index_row-=1
-                index_col=positions[-1]
-                cols.remove(index_col)  
-                pos_diag_id.remove(index_row + positions[index_row])
-                neg_diag_id.remove(index_row - positions[index_row])
-                positions[-1]=None
-                index_col += 1
+                result.append([(r, c) for r, c in enumerate(queen_position)])
+                index_row -= 1
+                index_col = remove_queen(index_row) + 1
     backtrack()
-    return solutions
+    return result
 
 
 if __name__ == "__main__":
