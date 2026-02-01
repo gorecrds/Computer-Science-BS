@@ -5,10 +5,13 @@ This module provides a backtracking solver for the N-Queens problem for n >= 4.
 Solutions use zero-based indexing and are returned as (row, column) tuples.
 """
 
-def nQueensAll(n: int) -> list[list[tuple[int, int]]]:  # pylint: disable=invalid-name
+# pylint: disable=invalid-name
+
+
+def nQueensAll(n: int) -> list[list[tuple[int, int]]]:
     """
-    Find all solutions to the N-Queens problem for a given n.
-    Returns: A list of solutions. Each solution is a list of (row, column) tuples.
+    Find all Solutions to the N-Queens problem for a given n.
+    Returns: Solution in a list of (row, column) tuples.
     Raises: ValueError: If n < 4.
     """
     if n < 4:
@@ -24,7 +27,8 @@ def nQueensAll(n: int) -> list[list[tuple[int, int]]]:  # pylint: disable=invali
     # Stores solutions found.
     result = []
 
-    # queen_position columns with respect to row. None means no queen currently placed in that row.
+    # queen_position columns with respect to row.
+    # None means no queen is placed in that row.
     queen_position = [None] * n
 
     def remove_queen(i_row: int) -> int:
@@ -45,13 +49,14 @@ def nQueensAll(n: int) -> list[list[tuple[int, int]]]:  # pylint: disable=invali
         i_row = 0
         i_col = 0
 
-        # Try to place a queen in each row. If stuck, backtrack to previous row.
+        # Try to place a queen in each row.
+        # If stuck backtrack to previous row.
         while i_row < n:
-            # If we are back at the first row and exceed all columns exit the loop .
+            # If at first row and exceed all columns exit the loop.
             if i_row == 0 and i_col >= n:
                 return
 
-            # If we ran out of columns in this row, backtrack to the previous row
+            # If we run out of columns at a row, backtrack to the previous row
             # and try the following columns from wehre the queen was placed.
             if i_col >= n:
                 i_row -= 1
@@ -82,7 +87,8 @@ def nQueensAll(n: int) -> list[list[tuple[int, int]]]:  # pylint: disable=invali
 
             # If we have queens in all rows, append to result.
             if i_row >= n:
-                result.append([(i_r, i_c) for i_r, i_c in enumerate(queen_position)])
+                res = [(i_r, i_c) for i_r, i_c in enumerate(queen_position)]
+                result.append(res)
 
                 # Remove the last queen and continue searching.
                 i_row -= 1
