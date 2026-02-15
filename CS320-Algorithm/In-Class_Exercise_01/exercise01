@@ -1,0 +1,48 @@
+from sys import argv
+import time
+
+words = [
+    "Liftoff!",
+    "One",
+    "Two",
+    "Three",
+    "Four",
+    "Five",
+    "Six",
+    "Seven",
+    "Eight",
+    "Nine",
+    "Ten",
+]
+
+
+def countdown(n):
+    for i in range(n, -1, -1):
+        if i < len(words):
+            print(f"{words[i]}", end="")
+            if i:
+                print("...")
+            else:
+                print("")
+
+        if i > 0:
+            time.sleep(1)
+
+countdown(20)
+
+"""
+def countdown(n):
+    if n < 0:
+        return
+    if n < len(words):
+        print(f"{words[n]}", end="")
+        if n:
+            print("...")
+        else:
+            print("")
+    if n > 0:
+        time.sleep(1)
+    countdown(n - 1)
+
+countdown(int(argv[1]))
+"""
