@@ -54,7 +54,7 @@ min_var = tk.StringVar(value="0.01")
 ttk.Entry(main, textvariable=min_var, width=10).grid(row=2, column=1, sticky="w", pady=2)
 
 ttk.Label(main, text="Max char delay (seconds):").grid(row=3, column=0, sticky="w", pady=2)
-max_var = tk.StringVar(value="0.5")
+max_var = tk.StringVar(value="0.3")
 ttk.Entry(main, textvariable=max_var, width=10).grid(row=3, column=1, sticky="w", pady=2)
 
 status_var = tk.StringVar(value="Ready.")
