@@ -26,9 +26,8 @@ def pld_graph(graph) -> list:
 
         v1, v2 = edge.ends()  # get vertex endpoints
         # Each path stores the current vertex, used edges, and path values
-        paths = [(v1, {edge}, [value]),(v2, {edge}, [value])]
+        paths = [(v1, {edge}, [value]), (v2, {edge}, [value])]
         # Keep looking while there are still paths to check
-        
         while len(paths) > 0:
             current_vertex, used_edges, path_values = paths.pop()  # Pop the last path to explore
             # add to result if path values has at least 3 values and is a palindrome
@@ -45,11 +44,10 @@ def pld_graph(graph) -> list:
                         next_vertex = next_ends[1]
                     else:
                         next_vertex = next_ends[0]
-                    # update used edges and path values for the new path
+                    # update used edge and path values fo rnext path
                     next_used_edges = set(used_edges)
                     next_used_edges.add(next_edge)
-                    next_path_values = list(path_values)
-                    next_path_values.append(next_edge.get_value())
+                    next_path_values = path_values + [next_edge.get_value()]
                     # append new path to paths
                     paths.append((next_vertex, next_used_edges, next_path_values))
     return sorted(result)
